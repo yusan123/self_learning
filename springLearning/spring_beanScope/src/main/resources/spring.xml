@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		">
+    <bean id="bean2" class="com.yu.Bean2" scope="prototype"/>
+    <!--<bean id="bean1" class="com.yu.Bean1" scope="prototype"/>-->
+    <bean id="bean1" class="com.yu.Bean1" scope="singleton">
+        <property name="bean2" ref="bean2"/>
+    </bean>
+
+    <!--单例bean依赖一个多例bean,默认依赖的bean还是单例的，将其改变成多例-->
+    <bean id="bean1_1" class="com.yu.Bean1_1" scope="singleton">
+        <lookup-method name="createBean2" bean="bean2"/>
+    </bean>
+</beans>

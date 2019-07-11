@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		">
+    <!--普通实例化bean-->
+    <bean class="com.yu.Bean1" id="bean1" name="bean12,bean13,bean14"/><!--使用name可以给bean起别名可以起多个-->
+    <alias name="bean1" alias="bean15"/>
+    <!--静态工厂方法实例化-->
+    <bean class="com.yu.Bean2StaticFactory" factory-method="getBean" id="bean2"/>
+    <!--普通工厂方法实例化
+    1.先初始化工厂再初始化对象-->
+    <bean class="com.yu.Bean3Factory" id="bean3Factory"/>
+    <bean class="com.yu.Bean3" id="bean3" factory-bean="bean3Factory" factory-method="getBean3"/>
+</beans>

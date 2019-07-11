@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		">
+    <!--scope表示是否是单例或者多例,默认是单例-->
+    <bean class="com.yu.AnotherBean" id="anotherBean" scope="prototype"/>
+    <!--<bean class="com.yu.Bean" id="bean"-->
+          <!--c:anotherBean-ref="anotherBean"-->
+          <!--c:string="33333333"-->
+          <!--p:anotherBean1-ref="anotherBean"-->
+          <!--p:string1="444444444444"-->
+    <!--/>-->
+
+    <bean class="com.yu.Bean" id="bean">
+        <constructor-arg index="0" ref="anotherBean"/>
+        <constructor-arg index="1" value="1111111"/>
+
+        <!--注入属性时使用内部bean-->
+        <property name="anotherBean1" >
+            <bean class="com.yu.AnotherBean"></bean>
+        </property>
+
+        <property name="string1" value="2222"/>
+
+        <property name="stringList">
+            <list>
+                <value>yuyu</value>
+                <value>sssss</value>
+            </list>
+        </property>
+        <property name="anotherBeanList">
+            <list>
+                <ref bean="anotherBean"/>
+                <ref bean="anotherBean"/>
+            </list>
+        </property>
+        <property name="stringSet">
+            <set>
+                <value>setset</value>
+                <value>setset222</value>
+            </set>
+        </property>
+        <property name="anotherBeanSet">
+            <set>
+                <ref bean="anotherBean"/>
+            </set>
+        </property>
+        <property name="stringMap">
+            <map>
+                <entry key="aaa" value="1111"/>
+                <entry key="bbb" value="2222"/>
+            </map>
+        </property>
+        <property name="anotherBeanMap">
+            <map>
+                <entry key-ref="anotherBean" value-ref="anotherBean"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="aaaaaa">ppppppppp</prop>
+            </props>
+        </property>
+
+        <!--注入空值-->
+        <property name="anotherBean2">
+            <null></null>
+        </property>
+
+    </bean>
+</beans>
