@@ -12,14 +12,14 @@
 		">
     <!--scope表示是否是单例或者多例,默认是单例-->
     <bean class="com.yu.AnotherBean" id="anotherBean" scope="prototype"/>
-    <!--<bean class="com.yu.Bean" id="bean"-->
+    <!--<bean clacom.yu.MyBeanBean" id="bean"-->
           <!--c:anotherBean-ref="anotherBean"-->
           <!--c:string="33333333"-->
           <!--p:anotherBean1-ref="anotherBean"-->
           <!--p:string1="444444444444"-->
     <!--/>-->
 
-    <bean class="com.yu.Bean" id="bean">
+    <bean class="com.yu.MyBean" id="bean">
         <constructor-arg index="0" ref="anotherBean"/>
         <constructor-arg index="1" value="1111111"/>
 
