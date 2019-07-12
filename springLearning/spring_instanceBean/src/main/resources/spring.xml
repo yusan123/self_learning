@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 		">
     <!--普通实例化bean-->
-    <bean class="com.yu.Bean1" id="bean1" name="bean12,bean13,bean14"/><!--使用name可以给bean起别名可以起多个-->
+    <bean class="com.yu.MyBean" id="bean1" name="bean12,bean13,bean14"/><!--使用name可以给bean起别名可以起多个-->
     <alias name="bean1" alias="bean15"/>
     <!--静态工厂方法实例化-->
     <bean class="com.yu.Bean2StaticFactory" factory-method="getBean" id="bean2"/>

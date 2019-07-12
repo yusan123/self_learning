@@ -8,8 +8,8 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 		">
     <bean id="bean2" class="com.yu.Bean2" scope="prototype"/>
-    <!--<bean id="bean1" class="com.yu.Bean1" scope="prototype"/>-->
-    <bean id="bean1" class="com.yu.Bean1" scope="singleton">
+    <!--<bean id="bean1" clacom.yu.MyBeanean1" scope="prototype"/>-->
+    <bean id="bean1" class="com.yu.MyBean" scope="singleton">
         <property name="bean2" ref="bean2"/>
     </bean>
 
