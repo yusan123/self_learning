@@ -1,4 +1,4 @@
-package com.yu.excel;
+package com.yu.utils.excel;
 
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -7,31 +7,27 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2019/8/2.
  */
-public class ExportExcel2<T> {
+public class ExportExcel {
 
     //显示的导出表的标题
     private String title;
     //导出表的列名
     private String[] rowName;
-    private List<T> dataList;
-
-    private OutputStream outputStream;
+    private List<Object[]> dataList;
 
     //构造方法，传入要导出的数据
-    public ExportExcel2(String title, String[] rowName, List<T> dataList,OutputStream outputStream) {
+    public ExportExcel(String title, String[] rowName, List<Object[]> dataList) {
         this.dataList = dataList;
         this.rowName = rowName;
         this.title = title;
-        this.outputStream = outputStream;
     }
 
     /*
@@ -42,9 +38,12 @@ public class ExportExcel2<T> {
             HSSFWorkbook workbook = new HSSFWorkbook();                        // 创建工作簿对象
             HSSFSheet sheet = workbook.createSheet(title);                    // 创建工作表
 
+
             //sheet样式定义【getColumnTopStyle()/getStyle()均为自定义方法 - 在下面  - 可扩展】
             HSSFCellStyle columnTopStyle = getColumnTopStyle(workbook);//获取列头样式对象
             HSSFCellStyle style = getStyle(workbook);                    //单元格样式对象
+
+
             // 定义所需列数
             int columnNum = rowName.length;
             HSSFRow rowRowName = sheet.createRow(0);                // 在索引2的位置创建行(最顶端的行开始的第二行)
@@ -59,9 +58,8 @@ public class ExportExcel2<T> {
             }
 
             //将查询出的数据设置到sheet对应的单元格中
-            List<Object[]> objects = fromObjListToObjArray();
-            for (int i = 0; i < objects.size(); i++) {
-                Object[] obj = objects.get(i); //遍历每个对象
+            for (int i = 0; i < dataList.size(); i++) {
+                Object[] obj = dataList.get(i); //遍历每个对象
                 HSSFRow row = sheet.createRow(i + 1); //创建所需的行数
                 for (int j = 0; j < obj.length; j++) {
                     HSSFCell cell = row.createCell(j, CellType.STRING);
@@ -101,8 +99,9 @@ public class ExportExcel2<T> {
 
             if (workbook != null) {
                 try {
-                    //String fileName = title + String.valueOf(System.currentTimeMillis()).substring(4, 13) + ".xls";
-                    workbook.write(outputStream);
+                    String fileName = title + String.valueOf(System.currentTimeMillis()).substring(4, 13) + ".xls";
+                    FileOutputStream out = new FileOutputStream(fileName);
+                    workbook.write(out);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -113,19 +112,8 @@ public class ExportExcel2<T> {
 
     }
 
-    private List<Object[]> fromObjListToObjArray() throws IllegalAccessException {
-        List<Object[]> objects = new ArrayList<>();
-        for (T obj : dataList) {
-            Class<?> c = obj.getClass();
-            Field[] fields = c.getDeclaredFields();
-            Object[] objArr = new Object[fields.length];
-            for (int i = 0; i < fields.length; i++) {
-                fields[i].setAccessible(true);
-                objArr[i] = fields[i].get(obj);
-            }
-            objects.add(objArr);
-        }
-        return objects;
+    private List<Object[]> fromObjListToObjArray(List objList){
+       return  new ArrayList<Object[]>();
     }
 
     /*

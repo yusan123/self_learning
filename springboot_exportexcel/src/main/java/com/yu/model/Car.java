@@ -6,19 +6,18 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Created by Administrator on 2019/8/3.
+ * Created by Administrator on 2019/8/6.
  */
+
 @Data
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Person {
+public class Car {
 
-
-    private Integer id;
+    private String id;
     private String name;
-    private String phoneNum;
-    private String address;
-    private String outcome;
-    private Integer money;
+    private String color;
+    private Double price;
+    private Boolean isOld;
 }
