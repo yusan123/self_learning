@@ -1,0 +1,6 @@
+CREATE TABLE `person` (
+  `id` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
